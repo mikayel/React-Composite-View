@@ -1,0 +1,25 @@
+{
+  "name": "React-Composite-View",
+  "version": "1.0.0",
+  "description": "react, webpack, react-router, composite view pattern",
+  "scripts": {
+    "start": "webpack -w --config webpack.config.js",
+    "build": "webpack --config webpack.config.js",
+    "prod": "NODE_ENV=production webpack -p --config webpack.config.js"
+  },
+  "repository": "https://github.com/mikayel/React-Composite-View.git",
+  "keywords": [
+    "react",
+    "webpack",
+    "react-router",
+    "composite view pattern"
+  ],
+  "author": "Mikayel Amirkhanyn",
+  "license": "MIT",
+  "dependencies": {
+
+  },
+  "devDependencies": {
+
+  }
+}
