@@ -4,7 +4,7 @@ process.noDeprecation = true
 
 const config = {
     entry: {
-        app: ['./App.js']
+        App: ['./App.js']
     },
 
     output: {
