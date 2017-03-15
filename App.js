@@ -1,4 +1,6 @@
-'use strict';
+'use strict'
+
+//import One from 'bundle-loader?lazy!./pages/One'
 
 import React from 'react'
 import ReactDOM from 'react-dom'
@@ -8,11 +10,15 @@ import {
   Link
 } from 'react-router-dom'
 
+import Bundle from './components/Bundle'
+import One from 'bundle-loader?lazy!./pages/One'
+
 const App = () => (
   <Router>
     <div>
       <ul>
         <li><Link to="/">Home</Link></li>
+        <li><Link to="/one">One</Link></li>
         <li><Link to="/about">About</Link></li>
         <li><Link to="/topics">Topics</Link></li>
       </ul>
@@ -20,8 +26,9 @@ const App = () => (
       <hr/>
 
       <Route exact path="/" component={Home}/>
-      <Route path="/about" component={About}/>
+      <Route path="/about" component={About} />
       <Route path="/topics" component={Topics}/>
+
     </div>
   </Router>
 )
@@ -32,10 +39,17 @@ const Home = () => (
   </div>
 )
 
-const About = () => (
-  <div>
-    <h2>About</h2>
-  </div>
+const Loading = () => (
+  <div className="bundle_loading">Loading...</div>
+)
+
+const About = (props) => (
+  <Bundle load={One} {...props}>
+    {(Comp) => (Comp
+      ? <Comp/>
+      : <Loading/>
+    )}
+  </Bundle>
 )
 
 const Topics = ({ match }) => (
