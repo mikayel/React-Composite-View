@@ -1,7 +1,5 @@
 'use strict'
 
-//import One from 'bundle-loader?lazy!./pages/One'
-
 import React from 'react'
 import ReactDOM from 'react-dom'
 import {
@@ -11,40 +9,24 @@ import {
 } from 'react-router-dom'
 
 import Bundle from './components/Bundle'
-import One from 'bundle-loader?lazy!./pages/One'
+import Home from './pages/Home'
 
 const App = () => (
   <Router>
     <div>
-      <ul>
-        <li><Link to="/">Home</Link></li>
-        <li><Link to="/one">One</Link></li>
-        <li><Link to="/about">About</Link></li>
-        <li><Link to="/topics">Topics</Link></li>
-      </ul>
-
-      <hr/>
-
       <Route exact path="/" component={Home}/>
-      <Route path="/about" component={About} />
-      <Route path="/topics" component={Topics}/>
-
+      <Route path="/one" component={PageOne} />
+      <Route path="/two" component={PageTwo}/>
     </div>
   </Router>
-)
-
-const Home = () => (
-  <div>
-    <h2>Home</h2>
-  </div>
 )
 
 const Loading = () => (
   <div className="bundle_loading">Loading...</div>
 )
 
-const About = (props) => (
-  <Bundle load={One} {...props}>
+const PageOne = (props) => (
+  <Bundle load={require('bundle-loader?lazy!./pages/One')} {...props}>
     {(Comp) => (Comp
       ? <Comp/>
       : <Loading/>
@@ -52,6 +34,16 @@ const About = (props) => (
   </Bundle>
 )
 
+const PageTwo = (props) => (
+  <Bundle load={require('bundle-loader?lazy!./pages/Two')} {...props}>
+    {(Comp) => (Comp
+      ? <Comp/>
+      : <Loading/>
+    )}
+  </Bundle>
+)
+
+/*
 const Topics = ({ match }) => (
   <div>
     <h2>Topics</h2>
@@ -85,5 +77,5 @@ const Topic = ({ match }) => (
     <h3>{match.params.topicId}</h3>
   </div>
 )
-
+*/
 ReactDOM.render( <App />, document.getElementById('appWrapper'));

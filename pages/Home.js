@@ -5,7 +5,7 @@ import React from 'react'
 import Header from '../components/header/Header'
 import Footer from '../components/footer/Footer'
 
-class One extends React.Component {
+class Home extends React.Component {
   constructor(props) {
     super(props);
     this.state = {};
@@ -13,13 +13,13 @@ class One extends React.Component {
 
   render() {
     return (
-      <div className="page_one">
+      <div className="page_home">
         <Header />
-        One
+        Home
         <Footer />
       </div>
     );
   }
 }
 
-export default One
+export default Home
