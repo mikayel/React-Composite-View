@@ -5,7 +5,7 @@ import ReactDOM from 'react-dom'
 import {
   BrowserRouter as Router,
   Route,
-  Link
+  Switch
 } from 'react-router-dom'
 
 import Bundle from './components/Bundle'
@@ -13,11 +13,12 @@ import Home from './pages/Home'
 
 const App = () => (
   <Router>
-    <div>
+    <Switch>
       <Route exact path="/" component={Home}/>
       <Route path="/one" component={PageOne} />
       <Route path="/two" component={PageTwo}/>
-    </div>
+      <Route path="/:page" component={PageWrapper}/>
+    </Switch>
   </Router>
 )
 
@@ -26,7 +27,7 @@ const Loading = () => (
 )
 
 const PageOne = (props) => (
-  <Bundle load={require('bundle-loader?lazy!./pages/One')} {...props}>
+  <Bundle load={require('bundle-loader?lazy!./pages/One')}>
     {(Comp) => (Comp
       ? <Comp/>
       : <Loading/>
@@ -35,7 +36,7 @@ const PageOne = (props) => (
 )
 
 const PageTwo = (props) => (
-  <Bundle load={require('bundle-loader?lazy!./pages/Two')} {...props}>
+  <Bundle load={require('bundle-loader?lazy!./pages/Two')}>
     {(Comp) => (Comp
       ? <Comp/>
       : <Loading/>
@@ -43,39 +44,22 @@ const PageTwo = (props) => (
   </Bundle>
 )
 
-/*
-const Topics = ({ match }) => (
-  <div>
-    <h2>Topics</h2>
-    <ul>
-      <li>
-        <Link to={`${match.url}/rendering`}>
-          Rendering with React
-        </Link>
-      </li>
-      <li>
-        <Link to={`${match.url}/components`}>
-          Components
-        </Link>
-      </li>
-      <li>
-        <Link to={`${match.url}/props-v-state`}>
-          Props v. State
-        </Link>
-      </li>
-    </ul>
 
-    <Route path={`${match.url}/:topicId`} component={Topic}/>
-    <Route exact path={match.url} render={() => (
-      <h3>Please select a topic.</h3>
-    )}/>
-  </div>
-)
+async function importPage(pageName) {
+    try {
+        let page = await import(`./pages/${pageName}`);
+        console.log(page);
+    } catch(err) {
+        console.error("template error");
+        return null;
+    }
+}
+// xxx to do
+const PageWrapper = ({ match }) => {
+  let mod = importPage(match.params.page);
+  let Ret = mod.default ? mod.default : Loading;
 
-const Topic = ({ match }) => (
-  <div>
-    <h3>{match.params.topicId}</h3>
-  </div>
-)
-*/
+  return <div><Ret /></div>;
+}
+
 ReactDOM.render( <App />, document.getElementById('appWrapper'));
