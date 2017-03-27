@@ -25,6 +25,9 @@ const App = () => (
 const Loading = () => (
   <div className="bundle_loading">Loading...</div>
 )
+const NotFound  = () => (
+  <div className="not_found">Page Not Found</div>
+)
 
 const PageOne = (props) => (
   <Bundle load={require('bundle-loader?lazy!./pages/One')}>
@@ -44,22 +47,39 @@ const PageTwo = (props) => (
   </Bundle>
 )
 
+class PageWrapper extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      ImportedPage: Loading
+    };
+  }
 
-async function importPage(pageName) {
-    try {
-        let page = await import(`./pages/${pageName}`);
-        console.log(page);
-    } catch(err) {
-        console.error("template error");
-        return null;
+  componentDidMount() {
+    this.importPage(this.props.match.params.page);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.match.params.page != this.props.match.params.page) {
+      this.importPage(nextProps.match.params.page);
     }
-}
-// xxx to do
-const PageWrapper = ({ match }) => {
-  let mod = importPage(match.params.page);
-  let Ret = mod.default ? mod.default : Loading;
+  }
 
-  return <div><Ret /></div>;
+  importPage(page) {
+    import(`./pages/${page}`).then(function(mod) {
+      if (mod.default) {
+        this.setState({"ImportedPage": mod.default});
+      } else {
+        this.setState({"ImportedPage": NotFound});
+      }
+    }.bind(this)).catch(function(e) {
+      this.setState({"ImportedPage": NotFound});
+    }.bind(this));
+  }
+
+  render() {
+    return (<this.state.ImportedPage />)
+  }
 }
 
 ReactDOM.render( <App />, document.getElementById('appWrapper'));

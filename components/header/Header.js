@@ -11,6 +11,7 @@ const Header = () => (
       <li><Link to="/one">One</Link></li>
       <li><Link to="/two">Two</Link></li>
       <li><Link to="/three">Three</Link></li>
+      <li><Link to="/four">Four</Link></li>
     </ul>
   </div>
 )
