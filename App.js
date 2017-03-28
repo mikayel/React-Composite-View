@@ -9,7 +9,7 @@ import {
 } from 'react-router-dom'
 
 import Bundle from './components/Bundle'
-import Home from './pages/Home'
+import Home from './pages/home'
 
 const App = () => (
   <Router>
@@ -30,7 +30,7 @@ const NotFound  = () => (
 )
 
 const PageOne = (props) => (
-  <Bundle load={require('bundle-loader?lazy!./pages/One')}>
+  <Bundle load={require('bundle-loader?lazy!./pages/one')}>
     {(Comp) => (Comp
       ? <Comp/>
       : <Loading/>
@@ -39,7 +39,7 @@ const PageOne = (props) => (
 )
 
 const PageTwo = (props) => (
-  <Bundle load={require('bundle-loader?lazy!./pages/Two')}>
+  <Bundle load={require('bundle-loader?lazy!./pages/two')}>
     {(Comp) => (Comp
       ? <Comp/>
       : <Loading/>
@@ -66,6 +66,7 @@ class PageWrapper extends React.Component {
   }
 
   importPage(page) {
+    this.setState({"ImportedPage": Loading});
     import(`./pages/${page}`).then(function(mod) {
       if (mod.default) {
         this.setState({"ImportedPage": mod.default});
