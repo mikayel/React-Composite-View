@@ -17,6 +17,7 @@ const App = () => (
       <Route exact path="/" component={Home}/>
       <Route path="/one" component={PageOne} />
       <Route path="/two" component={PageTwo}/>
+      <Route path="/:page/:subPage" component={PageWrapper}/>
       <Route path="/:page" component={PageWrapper}/>
     </Switch>
   </Router>
@@ -56,18 +57,23 @@ class PageWrapper extends React.Component {
   }
 
   componentDidMount() {
-    this.importPage(this.props.match.params.page);
+    this.importPage(this.props.match.params.page, this.props.match.params.subPage);
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.match.params.page != this.props.match.params.page) {
-      this.importPage(nextProps.match.params.page);
+    if (nextProps.match.params.page != this.props.match.params.page ||
+        nextProps.match.params.subPage != this.props.match.params.subPage) {
+      this.importPage(nextProps.match.params.page, nextProps.match.params.subPage);
     }
   }
 
-  importPage(page) {
+  importPage(page, subPage) {
     this.setState({"ImportedPage": Loading});
-    import(`./pages/${page}`).then(function(mod) {
+    let path = page;
+    if (typeof subPage != "undefined") {
+      path = page + "/" + subPage;
+    }
+    import(`./pages/${path}`).then(function(mod) {
       if (mod.default) {
         this.setState({"ImportedPage": mod.default});
       } else {
@@ -79,7 +85,7 @@ class PageWrapper extends React.Component {
   }
 
   render() {
-    return (<this.state.ImportedPage />)
+    return (<this.state.ImportedPage {...this.props} />)
   }
 }
 
