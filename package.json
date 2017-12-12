@@ -17,7 +17,6 @@
   "author": "Mikayel Amirkhanyn",
   "license": "MIT",
   "dependencies": {
-    "bundle-loader": "^0.5.5",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "react-router-dom": "^4.2.0"
@@ -36,6 +35,7 @@
     "file-loader": "^0.10.1",
     "style-loader": "^0.13.2",
     "url-loader": "^0.5.8",
-    "webpack": "^2.2.1"
+    "bundle-loader": "^0.5.5",
+    "webpack": "^3.10.0"
   }
 }
