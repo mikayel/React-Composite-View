@@ -1,6 +1,5 @@
 var webpack = require('webpack');
 var path = require('path');
-process.noDeprecation = true
 
 const config = {
     entry: {
@@ -10,61 +9,63 @@ const config = {
     output: {
         path: __dirname + '/dist',
         filename: '[name].js',
-        chunkFilename: '[id].chunk.js',
+        chunkFilename: '[id].[chunkhash].chunk.js',
         publicPath: '/dist/'
     },
 
     module: {
         rules: [
             {
-              test: /\.js$/,
-              exclude: /(node_modules)/,
-              use: [{
-                loader: 'babel-loader',
-                options: {
-                  presets: [['es2015', {modules: false}], "react"],
-                  plugins: [
+                test: /\.js$/,
+                exclude: /(node_modules|bower_components)/,
+                use: [{
+                    loader: 'babel-loader',
+                    options: {
+                        presets: ["env", "react"],
+                        plugins: [
+                            'transform-object-rest-spread',
                             'syntax-dynamic-import',
                             'transform-async-to-generator',
                             'transform-regenerator',
                             'transform-runtime'
-                          ]
-                }
-              }]
-            },
-            {   test: /\.css$/,
-                loaders: [ 'style-loader',
-                    { loader: 'css-loader',
-                        query: { sourceMap: true }
+                        ]
                     }
-                ]
+                }]
+            },
+            {
+                test: /\.css$/,
+                use: [ 'style-loader', 'css-loader' ]
+            },
+            {   test: /\.(woff|woff2|ttf|eot|svg)(\?v=[a-z0-9]\.[a-z0-9]\.[a-z0-9])?$/,
+                loader: 'url-loader?limit=100000'
             },
             {
                 test: /\.(svg|png|jpg|gif)$/,
-                loader: 'url?limit=8192'
+                loader: 'url-loader?limit=8192'
             }
-
         ]
     },
 
     resolve: {
-        extensions: [".js", ".jsx", ".css"],
+        extensions: [".js", ".jsx", ".css", ".json"],
         modules: [
-          path.resolve('./'),
-          'node_modules'
+            path.resolve('./'),
+            'node_modules'
         ]
     },
 
-    plugins: [
-    ]
+    plugins: []
 };
 
 if (process.env.NODE_ENV === 'production') {
     config.plugins.push(
-      new webpack.LoaderOptionsPlugin({
-        minimize: true,
-        debug: false
-      })
+        new webpack.LoaderOptionsPlugin({
+            minimize: true,
+            debug: false,
+            options: {
+                context: __dirname
+            }
+        })
     );
 }
 

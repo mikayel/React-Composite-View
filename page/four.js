@@ -1,9 +1,9 @@
 'use strict'
 
-import React from 'react'
+import React, {lazy} from 'react'
 
-import Header from '../components/header/Header'
-import Footer from '../components/footer/Footer'
+const Header = lazy(() => import('../header/Header'));
+const Footer = lazy(() => import('../footer/Footer'));
 
 class Four extends React.Component {
   constructor(props) {

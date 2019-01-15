@@ -1,11 +1,11 @@
 'use strict'
 
-import React from 'react'
+import React, {lazy} from 'react'
 
-import Header from '../components/header/Header'
-import Footer from '../components/footer/Footer'
+const Header = lazy(() => import('../header/Header'));
+const Footer = lazy(() => import('../footer/Footer'));
 
-class Home extends React.Component {
+export default class Home extends React.Component {
   constructor(props) {
     super(props);
     this.state = {};
@@ -21,5 +21,3 @@ class Home extends React.Component {
     );
   }
 }
-
-export default Home
