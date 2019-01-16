@@ -2,8 +2,9 @@
 
 import React from 'react'
 import { Link } from 'react-router-dom'
+import { withGlobalState } from "../GlobalState";
 
-const Footer = () => (
+const Footer = (props) => (
   <div className="footer">
     <h2>Footer</h2>
     <ul>
@@ -13,7 +14,10 @@ const Footer = () => (
       <li><Link to="/three">Three</Link></li>
       <li><Link to="/four">Four</Link></li>
     </ul>
+      <button onClick={() => props.setGlobalState({a:"24px"})} style={{fontSize: props.globalState.a}}>
+          Change global state {props.globalState.a}
+      </button>
   </div>
-)
+);
 
-export default Footer
+export default withGlobalState(Footer)

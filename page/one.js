@@ -18,7 +18,7 @@ export default class One extends React.Component {
       <div className="page_one">
         <Header />
         One
-          <GlobalStateConsumer>
+          {<GlobalStateConsumer>
               {({globalState, setGlobalState}) => {
                       return (
                           <button onClick={() => setGlobalState({a:"32px"})} style={{fontSize: globalState.a}}>
@@ -27,7 +27,7 @@ export default class One extends React.Component {
                       )
                   }
               }
-          </GlobalStateConsumer>
+          </GlobalStateConsumer>}
         <Footer />
       </div>
     );

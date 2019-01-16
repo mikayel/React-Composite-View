@@ -22,7 +22,7 @@ class App extends React.Component {
                 <Suspense fallback={<Loading />}>
                     <Router>
                         <Switch>
-                            <Route exact path="/" component={()=> <Home />} />
+                            <Route exact path="/" component={(props)=> <Home {...props} />} />
                             <Route path="/:page" component={PageWrapper}/>
                         </Switch>
                     </Router>
