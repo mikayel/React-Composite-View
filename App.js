@@ -40,8 +40,6 @@ class PageWrapper extends React.Component {
     static getDerivedStateFromError(error) {
         if (error.toString().search(/Cannot find module/i) !== -1 ) {
             return { hasError: true };
-        } else {
-            return { hasError: false };
         }
     }
 
