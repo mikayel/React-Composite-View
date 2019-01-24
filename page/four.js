@@ -1,4 +1,4 @@
-'use strict'
+'use strict';
 
 import React, {lazy} from 'react'
 
@@ -9,6 +9,10 @@ class Four extends React.Component {
   constructor(props) {
     super(props);
     this.state = {};
+  }
+
+  componentWillUnmount() {
+      console.log("Four componentWillUnmount");
   }
 
   render() {

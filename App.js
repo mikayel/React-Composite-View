@@ -48,7 +48,10 @@ class App extends React.Component {
 class PageWrapper extends React.Component {
     constructor(props) {
         super(props);
-        this.state = { hasPageNotFoundError: false, hasError: false };
+        this.state = {
+            PageComponent: null,
+            hasPageNotFoundError: false,
+            hasError: false };
     }
 
     static getDerivedStateFromError(error) {
@@ -63,22 +66,39 @@ class PageWrapper extends React.Component {
         this.setState({ hasError: true });
     }
 
+    componentDidMount() {
+        let page = this.props.match.params.page;
+        let PageComponent = lazy(() => import(`./page/${page}`));
+        this.setState({PageComponent: PageComponent});
+    }
+
     componentDidUpdate(prevProps, prevState) {
         if (prevState.hasPageNotFoundError && prevProps.match.params.page != this.props.match.params.page) {
             this.setState({hasError: false, hasPageNotFoundError:false});
         }
+
+        if (this.props.match.params.page !==  prevProps.match.params.page) {
+            let page = this.props.match.params.page;
+            let PageComponent = lazy(() => import(`./page/${page}`));
+            this.setState({PageComponent: PageComponent});
+        }
     }
 
     render() {
-        let page = this.props.match.params.page;
-        let PageComponent = lazy(() => import(`./page/${page}`));
+        /*let page = this.props.match.params.page;
+        let PageComponent = lazy(() => import(`./page/${page}`)); */
         if (this.state.hasPageNotFoundError) {
             return (<PageNotFound {...this.props} />);
         }
         if (this.state.hasError) {
             return <h1>Something went wrong.</h1>;
         }
-        return (<PageComponent {...this.props} />)
+        let PageComponent = this.state.PageComponent;
+        if (PageComponent == null) {
+            return <div>Loading... null</div>
+        } else {
+            return (<PageComponent {...this.props} />)
+        }
     }
 }
 
