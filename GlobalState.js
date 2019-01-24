@@ -5,7 +5,7 @@ import React from 'react'
 const GlobalStateContext = React.createContext({globalState: {}, setGlobalState: () => {} });
 
 export function withGlobalState(Component) {
-    return (props) => {
+    return function WrapperComponent(props) {
         return (
             <GlobalStateContext.Consumer>
                 {(contexts) => <Component {...props} {...contexts} />}
