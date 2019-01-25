@@ -73,20 +73,18 @@ class PageWrapper extends React.Component {
     }
 
     componentDidUpdate(prevProps, prevState) {
-        if (prevState.hasPageNotFoundError && prevProps.match.params.page != this.props.match.params.page) {
-            this.setState({hasError: false, hasPageNotFoundError:false});
-        }
-
         if (this.props.match.params.page !==  prevProps.match.params.page) {
             let page = this.props.match.params.page;
             let PageComponent = lazy(() => import(`./page/${page}`));
-            this.setState({PageComponent: PageComponent});
+            if (prevState.hasPageNotFoundError) {
+                this.setState({PageComponent: PageComponent, hasError: false, hasPageNotFoundError:false});
+            } else {
+                this.setState({PageComponent: PageComponent});
+            }
         }
     }
 
     render() {
-        /*let page = this.props.match.params.page;
-        let PageComponent = lazy(() => import(`./page/${page}`)); */
         if (this.state.hasPageNotFoundError) {
             return (<PageNotFound {...this.props} />);
         }
