@@ -7,19 +7,6 @@ import Loading from './component/loading/Loading'
 import {GlobalStateProvider} from './GlobalState'
 
 const PageNotFound = lazy(() => import('./PageNotFound'));
-//const Home = lazy(() => import('./page/home'));
-
-const fakeAuth = {
-    isAuthenticated: false,
-    authenticate(cb) {
-        this.isAuthenticated = true;
-        setTimeout(cb, 100); // fake async
-    },
-    signout(cb) {
-        this.isAuthenticated = false;
-        setTimeout(cb, 100);
-    }
-};
 
 class App extends React.Component {
     constructor(props) {
@@ -34,9 +21,7 @@ class App extends React.Component {
                 <Suspense fallback={<Loading />}>
                     <Router>
                         <Switch>
-                            { /* <Route exact path="/" component={(props)=> <Home {...props} />} /> */}
-                            <Route path="/login" component={Login} />
-                            <PrivateRoute path="/private/:page" component={PageWrapper}/>
+                            <Redirect exact path="/" to="/home"  />
                             <Route path="/:page" component={PageWrapper} />
                         </Switch>
                     </Router>
@@ -93,73 +78,10 @@ class PageWrapper extends React.Component {
         }
         let PageComponent = this.state.PageComponent;
         if (PageComponent == null) {
-            return <div>Loading... null</div>
+            return <div>Loading...</div>
         } else {
             return (<PageComponent {...this.props} />)
         }
-    }
-}
-
-function PrivateRoute({ component: Component, ...rest }) {
-    return (
-        <Route
-            {...rest}
-            render={props =>
-                fakeAuth.isAuthenticated ? (
-                    <Component {...props} />
-                ) : (
-                    <Redirect
-                        to={{
-                            pathname: "/login",
-                            state: { from: props.location }
-                        }}
-                    />
-                )
-            }
-        />
-    );
-}
-
-
-class Login extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {redirectToReferrer: false};
-
-        this.login = () => {
-            fakeAuth.authenticate(() => {
-                this.setState({redirectToReferrer: true});
-            });
-        };
-
-        this.logout = () => {
-            fakeAuth.signout(() => {
-                this.setState({redirectToReferrer: false});
-            });
-        };
-    }
-
-    render() {
-        let { from } = this.props.location.state || { from: { pathname: "/one" } };
-        let { redirectToReferrer } = this.state;
-
-        if (redirectToReferrer) return <Redirect to={from} />;
-
-        if (fakeAuth.isAuthenticated) {
-            return (
-                <div>
-                    <p>You are logged in!</p>
-                    <button onClick={this.logout}>Log out</button>
-                </div>
-            );
-        }
-
-        return (
-            <div>
-                <p>You must log in to view the page at {from.pathname}</p>
-                <button onClick={this.login}>Log in</button>
-            </div>
-        );
     }
 }
 

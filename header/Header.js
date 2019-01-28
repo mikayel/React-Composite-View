@@ -9,12 +9,9 @@ const Header = () => (
     <ul>
       <li><Link to="/">Home</Link></li>
       <li><Link to="/one">One</Link></li>
-      <li><Link to="/private/one">Private One</Link></li>
       <li><Link to="/two">Two</Link></li>
-      <li><Link to="/private/two">Private Two</Link></li>
       <li><Link to="/three">Three</Link></li>
       <li><Link to="/four">Four</Link></li>
-      <li><Link to="/login">login</Link></li>
       <li><Link to="/404">Page not found</Link></li>
     </ul>
   </div>

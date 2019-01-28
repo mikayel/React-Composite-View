@@ -5,7 +5,7 @@ import React, {lazy} from 'react'
 const Header = lazy(() => import('../header/Header'));
 const Footer = lazy(() => import('../footer/Footer'));
 
-export default class Two extends React.Component {
+class Two extends React.Component {
   constructor(props) {
     super(props);
     this.state = {};
@@ -21,3 +21,5 @@ export default class Two extends React.Component {
     );
   }
 }
+
+export default Two;

@@ -7,7 +7,7 @@ import {GlobalStateConsumer} from '../GlobalState'
 const Header = lazy(() => import('../header/Header'));
 const Footer = lazy(() => import('../footer/Footer'));
 
-export default class One extends React.Component {
+class One extends React.Component {
   constructor(props) {
     super(props);
     this.state = {};
@@ -33,3 +33,5 @@ export default class One extends React.Component {
     );
   }
 }
+
+export default One;

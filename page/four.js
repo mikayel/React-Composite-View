@@ -11,10 +11,6 @@ class Four extends React.Component {
     this.state = {};
   }
 
-  componentWillUnmount() {
-      console.log("Four componentWillUnmount");
-  }
-
   render() {
 
     return (
@@ -27,4 +23,4 @@ class Four extends React.Component {
   }
 }
 
-export default Four
+export default Four;
