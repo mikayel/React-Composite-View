@@ -5,8 +5,10 @@ import ReactDOM from 'react-dom'
 import { BrowserRouter as Router, Route, Switch, Redirect} from 'react-router-dom'
 import Loading from './component/loading/Loading'
 import {GlobalStateProvider} from './GlobalState'
+import queryString from 'query-string'
 
 const PageNotFound = lazy(() => import('./PageNotFound'));
+
 
 class App extends React.Component {
     constructor(props) {
@@ -70,6 +72,11 @@ class PageWrapper extends React.Component {
     }
 
     render() {
+
+        console.log("this.props.location.pathname", this.props.location.pathname.split("/") );
+        console.log("this.props.location.search", queryString.parse( this.props.location.search ) );
+
+
         if (this.state.hasPageNotFoundError) {
             return (<PageNotFound {...this.props} />);
         }
