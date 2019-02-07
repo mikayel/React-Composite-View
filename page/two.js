@@ -4,22 +4,20 @@ import React, {lazy} from 'react'
 
 const Header = lazy(() => import('../header/Header'));
 const Footer = lazy(() => import('../footer/Footer'));
+import { useGlobalStateContext } from '../GlobalState'
 
-class Two extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {};
-  }
+function two(props) {
+    let [globalState, setGlobalState] = useGlobalStateContext();
 
-  render() {
     return (
-      <div className="page_two">
-        <Header />
-        Two
-        <Footer />
-      </div>
+        <div className="page page_two">
+            <Header />
+                Two
+                <button onClick={() => setGlobalState({a:"18px"})} style={{fontSize: globalState.a}}>
+                    Change global state {globalState.a}
+                </button>
+            <Footer />
+        </div>
     );
-  }
 }
-
-export default Two;
+export default two;

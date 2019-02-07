@@ -1,6 +1,6 @@
 'use strict';
 
-import React from 'react'
+import React, {useContext} from 'react'
 
 const GlobalStateContext = React.createContext({globalState: {}, setGlobalState: () => {} });
 
@@ -13,6 +13,12 @@ export function withGlobalState(Component) {
         )
     }
 }
+
+export const useGlobalStateContext = () => {
+    const context = useContext(GlobalStateContext);
+
+    return [context.globalState, context.setGlobalState];
+};
 
 export const GlobalStateProvider = GlobalStateContext.Provider;
 export const GlobalStateConsumer = GlobalStateContext.Consumer;
