@@ -21,15 +21,16 @@ const config = {
                 use: [{
                     loader: 'babel-loader',
                     options: {
-                        presets: ["env", "react"],
+                        presets: ["@babel/env", "@babel/react"],
                         plugins: [
-                            'transform-object-rest-spread',
-                            'syntax-dynamic-import',
-                            'transform-async-to-generator',
-                            'transform-regenerator',
-                            'transform-runtime'
+                            '@babel/plugin-proposal-object-rest-spread',
+                            '@babel/plugin-syntax-dynamic-import',
+                            '@babel/transform-async-to-generator',
+                            '@babel/transform-regenerator',
+                            '@babel/transform-runtime'
                         ]
                     }
+
                 }]
             },
             {
