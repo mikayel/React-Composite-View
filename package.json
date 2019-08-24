@@ -1,6 +1,6 @@
 {
   "name": "React-Composite-View",
-  "version": "16.7.0",
+  "version": "16.9.0",
   "description": "react, webpack, react-router, composite view pattern",
   "scripts": {
     "start": "webpack --mode=development -w --config webpack.config.js",
@@ -17,30 +17,29 @@
   "author": "Mikayel Amirkhanyn",
   "license": "MIT",
   "dependencies": {
-    "query-string": "^6.2.0",
-    "react": "^16.8.1",
-    "react-dom": "^16.8.1",
+    "query-string": "^6.8.2",
+    "react": "^16.9.0",
+    "react-dom": "^16.9.0",
     "react-router-dom": "^4.3.1"
   },
   "devDependencies": {
-    "@babel/cli": "^7.0.0",
-    "@babel/core": "^7.0.0",
-    "@babel/plugin-proposal-object-rest-spread": "^7.0.0",
+    "@babel/cli": "^7.5.5",
+    "@babel/core": "^7.5.5",
+    "@babel/plugin-proposal-object-rest-spread": "^7.5.5",
     "@babel/plugin-syntax-dynamic-import": "^7.2.0",
-    "@babel/plugin-transform-async-to-generator": "^7.0.0",
-    "@babel/plugin-transform-regenerator": "^7.0.0",
-    "@babel/plugin-transform-runtime": "^7.0.0",
-    "@babel/preset-env": "^7.3.1",
+    "@babel/plugin-transform-async-to-generator": "^7.5.0",
+    "@babel/plugin-transform-regenerator": "^7.4.5",
+    "@babel/plugin-transform-runtime": "^7.5.5",
+    "@babel/preset-env": "^7.5.5",
     "@babel/preset-react": "^7.0.0",
-    "@babel/runtime": "^7.3.1",
-    "babel-core": "^7.0.0-bridge.0",
-    "babel-loader": "^8.0.0",
+    "@babel/runtime": "^7.5.5",
+    "babel-loader": "^8.0.6",
     "babel-preset-env": "^1.7.0",
     "css-loader": "^2.1.0",
     "file-loader": "^3.0.1",
     "style-loader": "^0.23.1",
     "url-loader": "^1.1.2",
-    "webpack": "^4.28.2",
-    "webpack-cli": "^3.1.2"
+    "webpack": "^4.39.2",
+    "webpack-cli": "^3.3.7"
   }
 }
